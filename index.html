@@ -8,15 +8,18 @@
     <h1>Essais avec Ajax</h1>
     <h2>Affiche de l'élève</h2>
 
-    <ul>
-        <li><a class="eleve" href="demo.php?eleve=tommy">Élève 1</a></li>
-        <li><a class="eleve" href="demo.php?eleve=dorian">Élève 2</a></li>
-    </ul>
+    <form action="#" id="form">
+        <label for="query">Nom de l'élève </label><input type="text" id="query" placeholder="Ma recherche">
+        <input type="submit" value="Rechercher">
+    </form>
+
+<!--    <ul>-->
+<!--        <li><a class="eleve" href="demo.php?eleve=tommy">Élève 1</a></li>-->
+<!--        <li><a class="eleve" href="demo.php?eleve=dorian">Élève 2</a></li>-->
+<!--    </ul>-->
 
     <div id="resultat"></div>
 </body>
 
 <script src="app.js"></script>
-</html>
-
 </html>

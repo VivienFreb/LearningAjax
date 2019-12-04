@@ -1,8 +1,7 @@
 (function () {
-    const links = document.querySelectorAll('.eleve');
-    const result = document.getElementById('resultat');
-    for (let i = 0; i < links.length; i++) {
-        links[i].addEventListener('click', function (e) {
+        let result = document.querySelector('#resultat');
+        let form = document.querySelector('#form');
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
             const httpRequest = new XMLHttpRequest();
             if (!httpRequest) {
@@ -13,25 +12,21 @@
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState === XMLHttpRequest.DONE) {
                     if (httpRequest.status === 200) {
-                        const api_results = JSON.parse(httpRequest.responseText);
-                        result.innerHTML = ''
-                        const ul = document.createElement('ul');
-                        result.appendChild(ul);
-                        for(let i = 0; i < api_results.length; i++){
-                            var li = document.createElement('li');
-                            li.innerHTML = api_results[i].name;
-                            ul.appendChild(li);
-                        }
-
+                        result.innerHTML = httpRequest.responseText;
                     } else {
-                        result.innerHTML = "Il y a eu un problème avec la requête."
+                        result.innerHTML = "Il y a eu un problème avec la requête. Erreur : " + httpRequest.status
                     }
                 }
             };
-            // httpRequest.open('GET', this.getAttribute('href'));
-            // Il n'est pas toujours possible d'accéder à des ressources extérieures à cause de l'AJAx (cf. CORS)
-            httpRequest.open('GET', "https://jsonplaceholder.typicode.com/users"); // Faux JSON pour test, le site accepte le Cross Origin via ses Headers
-            httpRequest.send();
+            httpRequest.open('POST', "demo.php");
+            // httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            // var test = "Oui&Non=Test"; // Au cas où l'utilisateur enverrait des informations érronés
+            // httpRequest.send("firstname=Claude" + encodeURIComponent(test) + "&lastname=Francois");
+
+            // Une méthode plus simple est d'utiliser le FormData
+            let datas = new FormData();
+            let input = document.querySelector('#query');
+            datas.append('query', input.value);
+            httpRequest.send(datas);
         })
-    }
 })();
