@@ -1,5 +1,6 @@
 (function () {
     const links = document.querySelectorAll('.eleve');
+    const result = document.getElementById('resultat');
     for (let i = 0; i < links.length; i++) {
         links[i].addEventListener('click', function (e) {
             e.preventDefault();
@@ -8,12 +9,13 @@
                 alert('Abandon :( Impossible de créer une instance de XMLHTTP');
                 return false;
             }
+            result.innerHTML = "Chargement en cours...";
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState === XMLHttpRequest.DONE) {
                     if (httpRequest.status === 200) {
-                        document.getElementById('resultat').innerHTML = httpRequest.responseText;
+                        result.innerHTML = httpRequest.responseText;
                     } else {
-                        document.getElementById('resultat').innerHTML = "Il y a eu un problème avec la requête."
+                        result.innerHTML = "Il y a eu un problème avec la requête."
                     }
                 }
             };
