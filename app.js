@@ -24,9 +24,7 @@
             // httpRequest.send("firstname=Claude" + encodeURIComponent(test) + "&lastname=Francois");
 
             // Une méthode plus simple est d'utiliser le FormData
-            let datas = new FormData();
-            let input = document.querySelector('#query');
-            datas.append('query', input.value);
+            let datas = new FormData(form);
             httpRequest.send(datas);
         })
 })();
